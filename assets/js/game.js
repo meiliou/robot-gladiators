@@ -31,7 +31,7 @@ var fight = function(enemyName) {
           window.alert(playerName + ' has decided to skip this fight. Goodbye!');
           // subtract money from playerMoney for skipping
           playerMoney = playerMoney - 10;
-          console.log("playerMoney", playerMoney)
+          console.log("playerMoney", playerMoney);
           break;
         }
       }
@@ -53,9 +53,10 @@ var fight = function(enemyName) {
   
         // leave while() loop since enemy is dead
         break;
-      } else {
-        window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
-      }
+        } 
+        else {
+            window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
+        }
   
       // remove players's health by subtracting the amount set in the enemyAttack variable
       playerHealth = playerHealth - enemyAttack;
@@ -70,7 +71,7 @@ var fight = function(enemyName) {
         // leave while() loop if player is dead
         break;
       } else {
-        window.alert(playerName + ' still has ' + playerHealth + ' health left.');
+            window.alert(playerName + ' still has ' + playerHealth + ' health left.');
       } 
     }
   };
