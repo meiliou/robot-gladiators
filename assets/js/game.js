@@ -38,7 +38,7 @@ var fight = function(enemy) {
             } // if no (false), ask question agin about running fight()
         }
 
-        //remove enemy.health from playerAttach
+        //remove enemy.health from playerInfo.attackh
         // generate random damage value based on player's attack power
         var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
         enemy.health = Math.max(0, enemy.health - damage);
@@ -152,11 +152,11 @@ var startGame = function() {
             // reset the enemy.health to 50
             pickedEnemyObj.health = randomNumber(40, 60);
 
-            // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-            fight(pickedEnemyName);
+            // pass the enemyInfo variable's value into the fight function, where it will assume the value of the enemy.name parameter
+            fight(pickedEnemyObj);
 
            // if player is still alive and we're not at the last enemy in the array
-           if (playerHealth > 0 && i < enemyNames.length - 1) {
+           if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
               shop();
             }
 
@@ -199,32 +199,11 @@ var shop = function() {
   switch (shopOptionPrompt) {
     case "REFILL":  //new case
     case "refill":
-      if (playerMoney >= 7) {
-        window.alert("Refilling player's health by 20 for 7 dollars.");
-    
-        // increase health and decrease money
-        playerHealth = playerHealth + 20;
-        playerMoney = playerMoney - 7;
-      }
-      else {
-        window.alert("You don't have enough money!");
-      }
-    
-      break;
-    
+      playerInfo.refillHealth();
+      break;  
     case "UPGRADE": //new case
     case "upgrade":
-      if (playerMoney >= 7) {
-        window.alert("Upgrading player's attack by 6 for 7 dollars.");
-    
-       // increase attack and decrease money
-        playerAttack = playerAttack + 6;
-        playerMoney = playerMoney - 7;
-      }
-      else {
-        window.alert("You don't have enough money!");
-      }
-    
+      playerInfo.upgradeAttack();
       break;
     case "LEAVE":
     case "leave":
