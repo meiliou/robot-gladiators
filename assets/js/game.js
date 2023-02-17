@@ -4,6 +4,9 @@
 // * Defeat each enemy robot
 // "LOSE" - Player robot's health is zero or less
 
+//***************************************//
+// ----- USER EXPERIENCE FUNCTIONS ----- //
+//***************************************//
 
 // function to generate a random numeric value
 var randomNumber = function(min, max) {
@@ -36,14 +39,13 @@ var fightOrSkip = function() {
       
       // return value if user wants to leave
       return true;
-
-      // shop(); *******************??
     }
   }
 };
 
-
-
+//****************************//
+// ----- FIGHT FUNCTION ----- //
+//****************************//
 
 // fight function
 var fight = function(enemy) {
@@ -121,6 +123,9 @@ var fight = function(enemy) {
   }
 };
 
+//*******************************//
+// ----- PLAYER/ROBOT INFO ----- //
+//*******************************//
 
 // function to set name
 var getPlayerName = function() {
@@ -131,7 +136,6 @@ var getPlayerName = function() {
   console.log("Your robot's name is" + name);
   return name;
 };
-
 
 var playerInfo = {
   name: getPlayerName(),
@@ -183,7 +187,10 @@ var enemyInfo = [
   }
 ];
 
-//function to start a new game
+//****************************//
+// ------- START-GAME ------- //
+//****************************//
+
 var startGame = function() {
     //reset player stats
     playerInfo.reset();
@@ -214,27 +221,44 @@ var startGame = function() {
     endGame();
 };
 
+//**********************//
+// ----- END-GAME ----- //
+//**********************//
+
 // Add endGame() function
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
- 
-  // if player is still alive, player wins
-  if (playerInfo.health > 0) {
-      window.alert("Player is alive. Great Job, you've survived the game!")
-  } else {
-      window.alert("You've lost all your health, your robot lost the battle")
+  
+  // check localStorage for high score, if it's not there, use 0
+  var highScore = localStorage.getItem("highscore");
+  if (highScore === null) {
+    highScore = 0;
+  }
+  // if player have more money than the high score, player has new high score!
+  if (playerInfo.money > highScore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+  }   
+  else {
+    alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
   }
 
-  //ask if the player would like to play again
+  // ask player if they'd like to play again
   var playAgainConfirm = window.confirm("Would you like to play again?");
 
   if (playAgainConfirm) {
-      startGame();
-  } else {
-      window.alert("Thank you for playing Robot Gladiators! Come back soon!")
+    startGame();
+  } 
+  else {
+    window.alert("Thank you for playing Battlebots! Come back soon!");
   }
-};
+}; 
 
+//******************//
+// ----- SHOP ----- //
+//******************//
 
 var shop = function() {
   // ask player what they'd like to do
@@ -263,9 +287,3 @@ var shop = function() {
 }; //end of shop function
 
 startGame();
-
-
-
-// Finalize MVP and switch branches
-// add shop() function 
-// save our progress by using Git
